@@ -85,6 +85,53 @@ server.post('/cars', (req, res, next) => {
   });
 });
 
+server.put('/cars/:carIdentifier', (req, res, next) => {
+  const carId = req.params.carIdentifier;
+
+  const car = db.cars.findOne({ _id: carId });
+
+  if (!car) {
+    logger.error(`Cannot find car with id ${carId}`);
+
+    res.status(404).json({
+      message: `Cannot find car with id ${carId}`,
+    });
+
+    return;
+  }
+
+  db.cars.update({ _id: carId }, req.body);
+
+  const updatedData = db.cars.findOne({ _id: carId });
+
+  res.json({
+    data: updatedData,
+    message: 'Record updated successfully',
+  });
+});
+
+server.delete('/cars/:carIdentifier', (req, res, next) => {
+  const carId = req.params.carIdentifier;
+
+  const car = db.cars.findOne({ _id: carId });
+
+  if (!car) {
+    logger.error(`Cannot delete car with id ${carId} because it doesn't exist`);
+
+    res.status(404).json({
+      message: `Cannot delete car with id ${carId} because it doesn't exist`,
+    });
+
+    return;
+  }
+
+  db.cars.remove({ _id: carId });
+
+  res.json({
+    message: 'Record removed successfully',
+  });
+});
+
 const PORT = 8848;
 
 server.listen(PORT, () => {
