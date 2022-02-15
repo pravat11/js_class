@@ -1,6 +1,11 @@
 import Car from '../models/Car.js';
 import logger from '../utils/logger.js';
 
+/**
+ * Get all cars.
+ *
+ * @return
+ */
 export function getAllCars() {
   logger.info('Fetching a list of all cars');
 
@@ -12,6 +17,12 @@ export function getAllCars() {
   };
 }
 
+/**
+ * Get a specific car details by id.
+ *
+ * @param {string} id
+ * @returns {object}
+ */
 export function getCar(id) {
   logger.info(`Fetching car with carId ${id}`);
 
