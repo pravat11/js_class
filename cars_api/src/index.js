@@ -1,4 +1,5 @@
 import helmet from 'helmet';
+import dotenv from 'dotenv';
 import morgan from 'morgan';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -9,6 +10,8 @@ import logger from './utils/logger.js';
 
 const server = express();
 
+dotenv.config();
+
 server.use(serveFavicon('./public/favicon.ico'));
 
 server.use(helmet());
@@ -17,8 +20,6 @@ server.use(bodyParser.json());
 
 server.use(router);
 
-const PORT = 8848;
-
-server.listen(PORT, () => {
-  logger.info(`Listening on 127.0.0.1:${PORT}`);
+server.listen(process.env.PORT, () => {
+  logger.info(`Listening on 127.0.0.1:${process.env.PORT}`);
 });
