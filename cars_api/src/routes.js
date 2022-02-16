@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import validation from './middlewares/validation.js';
 import * as carController from './controllers/car.js';
 
 const router = Router();
@@ -12,7 +13,7 @@ router.get('/cars', carController.getCars);
 
 router.get('/cars/:carIdentifier', carController.getCar);
 
-router.post('/cars', carController.saveCar);
+router.post('/cars', validation, carController.saveCar);
 
 router.put('/cars/:carIdentifier', carController.updateCar);
 

@@ -43,7 +43,12 @@ export function getCar(id) {
 export function addCar(params) {
   logger.debug('Payload received', params);
 
-  const existingData = new Car().findByParams(params);
+  const onlyRequiredParams = {
+    manufacturer: params.manufacturer,
+    model: params.model,
+  };
+
+  const existingData = new Car().findByParams(onlyRequiredParams);
 
   if (existingData) {
     logger.error('Data with the same payload already exists');
@@ -53,7 +58,7 @@ export function addCar(params) {
 
   logger.info('Saving the new car data');
 
-  const data = new Car().save(params);
+  const data = new Car().save(onlyRequiredParams);
 
   return {
     data,
