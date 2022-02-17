@@ -1,18 +1,31 @@
 import Joi from 'joi';
 
-import addCarSchema from '../schemas/addCar.js';
+export function validateBody(schema) {
+  return function (req, res, next) {
+    try {
+      Joi.assert(req.body, schema);
 
-function validation(req, res, next) {
-  try {
-    Joi.assert(req.body, addCarSchema);
-
-    next();
-  } catch (err) {
-    res.status(400).json({
-      message: 'Validation error',
-      details: err.details.map((e) => e.message),
-    });
-  }
+      next();
+    } catch (err) {
+      res.status(400).json({
+        message: 'Request body validation error',
+        details: err.details.map((e) => e.message),
+      });
+    }
+  };
 }
 
-export default validation;
+export function validateQueryParams(schema) {
+  return function (req, res, next) {
+    try {
+      Joi.assert(req.query, schema);
+
+      next();
+    } catch (err) {
+      res.status(400).json({
+        message: 'Query params validation error',
+        details: err.details.map((e) => e.message),
+      });
+    }
+  };
+}
