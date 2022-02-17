@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
-    "start:dev": "NODE_ENV=development node src/index.js"
+    "start:dev": "NODE_ENV=development node src/index.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prettify": "prettier --single-quote --print-width 120  --write \"src/**/*.js\""
   },
   "dependencies": {
     "body-parser": "^1.19.1",
@@ -18,5 +21,11 @@
     "morgan": "^1.10.0",
     "serve-favicon": "^2.5.0",
     "winston": "^3.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
   }
 }
