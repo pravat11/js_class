@@ -8,6 +8,6 @@ export function getAPIDetails() {
   return {
     name: parsedData.name,
     version: parsedData.version,
-    description: parsedData.description,
+    description: parsedData.description
   };
 }

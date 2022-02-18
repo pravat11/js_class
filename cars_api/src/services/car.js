@@ -28,7 +28,7 @@ export function getAllCars(query) {
 
   return {
     data: filteredCars,
-    message: 'List of cars',
+    message: 'List of cars'
   };
 }
 
@@ -51,7 +51,7 @@ export function getCar(id) {
 
   return {
     data: car,
-    message: `Details of carId ${id}`,
+    message: `Details of carId ${id}`
   };
 }
 
@@ -60,7 +60,7 @@ export function addCar(params) {
 
   const onlyRequiredParams = {
     manufacturer: params.manufacturer,
-    model: params.model,
+    model: params.model
   };
 
   const existingData = new Car().findByParams(onlyRequiredParams);
@@ -77,7 +77,7 @@ export function addCar(params) {
 
   return {
     data,
-    message: 'Added the record successfully',
+    message: 'Added the record successfully'
   };
 }
 
@@ -102,7 +102,7 @@ export function updateCar(id, params) {
 
   return {
     data: updatedData,
-    message: 'Record updated successfully',
+    message: 'Record updated successfully'
   };
 }
 
@@ -120,6 +120,6 @@ export function removeCar(id) {
   new Car().removeById(id);
 
   return {
-    message: 'Record removed successfully',
+    message: 'Record removed successfully'
   };
 }

@@ -13,7 +13,7 @@ function buildError(err) {
     return {
       code: HttpStatusCodes.BAD_REQUEST,
       message: 'Validation Error',
-      details: err.details.map((e) => e.message),
+      details: err.details.map((e) => e.message)
     };
   }
 
@@ -21,7 +21,7 @@ function buildError(err) {
   if (err.isBoom) {
     return {
       code: err.output.statusCode,
-      message: err.output.payload.message,
+      message: err.output.payload.message
     };
   }
 
@@ -29,6 +29,6 @@ function buildError(err) {
   return {
     code: HttpStatusCodes.INTERNAL_SERVER_ERROR,
     message: HttpStatusCodes.getStatusText(HttpStatusCodes.INTERNAL_SERVER_ERROR),
-    details: err.message || '',
+    details: err.message || ''
   };
 }
