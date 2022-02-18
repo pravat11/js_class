@@ -6,6 +6,9 @@ const {
   format: { printf, combine, timestamp, colorize }
 } = winston;
 
+/**
+ * Create custom print format.
+ */
 const myFormat = printf(({ level, message, timestamp }) => `${timestamp} [ ${level} ] ${message}`);
 
 /**

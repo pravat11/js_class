@@ -21,6 +21,7 @@
     "space-infix-ops": 2,
     "no-return-await": 2,
     "no-await-in-loop": 2,
+    "require-jsdoc": "warn",
     "space-before-blocks": 2,
     "newline-before-return": 2,
     "linebreak-style": [2, "unix"],

@@ -6,8 +6,8 @@ import logger from '../utils/logger.js';
 /**
  * Get a list of all available cars.
  *
- * @param {object} [query]
- * @return {object}
+ * @param {Object} [query]
+ * @return {Object}
  */
 export function getAllCars(query) {
   const manufacturerFilter = query.manufacturer ? query.manufacturer.split(',') : [];
@@ -37,7 +37,7 @@ export function getAllCars(query) {
  * Get details of a car by the identifier.
  *
  * @param {string} id
- * @return {object}
+ * @return {Object}
  */
 export function getCar(id) {
   logger.info(`Fetching car with carId ${id}`);
@@ -59,8 +59,8 @@ export function getCar(id) {
 /**
  * Create a new car record.
  *
- * @param {object} params
- * @return {object}
+ * @param {Object} params
+ * @return {Object}
  */
 export function addCar(params) {
   logger.debug('Payload received', params);
@@ -94,8 +94,8 @@ export function addCar(params) {
  * Update existing car record.
  *
  * @param {string} id
- * @param {object} params
- * @return {object}
+ * @param {Object} params
+ * @return {Object}
  */
 export function updateCar(id, params) {
   logger.info(`Checking the existence of car with id ${id}`);
@@ -126,7 +126,7 @@ export function updateCar(id, params) {
  * Remove an existing record based on the identifier.
  *
  * @param {string} id
- * @return {object}
+ * @return {Object}
  */
 export function removeCar(id) {
   logger.info(`Checking if car with id ${id} exists`);
