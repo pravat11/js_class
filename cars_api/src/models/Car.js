@@ -1,5 +1,10 @@
 import diskDb from 'diskdb';
 
+/**
+ * Model for the 'cars' file.
+ *
+ * @class Car
+ */
 class Car {
   constructor() {
     this.filename = 'cars';

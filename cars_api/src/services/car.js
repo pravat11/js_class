@@ -3,6 +3,12 @@ import Boom from '@hapi/boom';
 import Car from '../models/Car.js';
 import logger from '../utils/logger.js';
 
+/**
+ * Get a list of all available cars.
+ *
+ * @param {object} [query]
+ * @return {object}
+ */
 export function getAllCars(query) {
   const manufacturerFilter = query.manufacturer ? query.manufacturer.split(',') : [];
   const modelFilter = query.model ? query.model.split(',') : [];
@@ -27,6 +33,12 @@ export function getAllCars(query) {
   };
 }
 
+/**
+ * Get details of a car by the identifier.
+ *
+ * @param {string} id
+ * @return {object}
+ */
 export function getCar(id) {
   logger.info(`Fetching car with carId ${id}`);
 
@@ -44,6 +56,12 @@ export function getCar(id) {
   };
 }
 
+/**
+ * Create a new car record.
+ *
+ * @param {object} params
+ * @return {object}
+ */
 export function addCar(params) {
   logger.debug('Payload received', params);
 
@@ -51,6 +69,8 @@ export function addCar(params) {
     manufacturer: params.manufacturer,
     model: params.model
   };
+
+  logger.info('Checking if similar record already exists');
 
   const existingData = new Car().findByParams(onlyRequiredParams);
 
@@ -70,6 +90,13 @@ export function addCar(params) {
   };
 }
 
+/**
+ * Update existing car record.
+ *
+ * @param {string} id
+ * @param {object} params
+ * @return {object}
+ */
 export function updateCar(id, params) {
   logger.info(`Checking the existence of car with id ${id}`);
 
@@ -95,6 +122,12 @@ export function updateCar(id, params) {
   };
 }
 
+/**
+ * Remove an existing record based on the identifier.
+ *
+ * @param {string} id
+ * @return {object}
+ */
 export function removeCar(id) {
   logger.info(`Checking if car with id ${id} exists`);
 

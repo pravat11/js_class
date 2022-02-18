@@ -1,13 +1,28 @@
 import winston from 'winston';
 
-const logger = winston.createLogger({
-  level: 'debug'
+const {
+  transports,
+  createLogger,
+  format: { printf, combine, timestamp, colorize }
+} = winston;
+
+const myFormat = printf(({ level, message, timestamp }) => `${timestamp} [ ${level} ] ${message}`);
+
+/**
+ * Create new winston logger instance.
+ */
+const logger = createLogger({
+  format: combine(colorize(), timestamp(), myFormat),
+  transports: [new transports.Console()]
 });
 
-logger.add(
-  new winston.transports.Console({
-    format: winston.format.simple()
-  })
-);
+/**
+ * A writable stream for winston logging.
+ */
+export const logStream = {
+  write(message) {
+    logger.info(message.toString().trim());
+  }
+};
 
 export default logger;
