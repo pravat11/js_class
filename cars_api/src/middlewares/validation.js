@@ -9,7 +9,7 @@ import Joi from 'joi';
 export function validateBody(schema) {
   return function (req, res, next) {
     try {
-      Joi.assert(req.body, schema);
+      Joi.assert(req.body, schema, { abortEarly: false });
 
       next();
     } catch (err) {
@@ -27,7 +27,7 @@ export function validateBody(schema) {
 export function validateQueryParams(schema) {
   return function (req, res, next) {
     try {
-      Joi.assert(req.query, schema);
+      Joi.assert(req.query, schema, { abortEarly: false });
 
       next();
     } catch (err) {
