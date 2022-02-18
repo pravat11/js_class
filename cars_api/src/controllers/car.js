@@ -6,9 +6,7 @@ export function getCars(req, res, next) {
 
     res.json(data);
   } catch (err) {
-    res.status(400).json({
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -20,9 +18,7 @@ export function getCar(req, res, next) {
 
     res.json(data);
   } catch (err) {
-    res.status(400).json({
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -32,9 +28,7 @@ export function saveCar(req, res, next) {
 
     res.json(data);
   } catch (err) {
-    res.status(400).json({
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -47,9 +41,7 @@ export function updateCar(req, res, next) {
 
     res.json(data);
   } catch (err) {
-    res.status(400).json({
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -59,8 +51,6 @@ export function removeCar(req, res, next) {
 
     res.json(data);
   } catch (err) {
-    res.status(400).json({
-      message: err.message,
-    });
+    next(err);
   }
 }

@@ -1,3 +1,5 @@
+import Boom from '@hapi/boom';
+
 import Car from '../models/Car.js';
 import logger from '../utils/logger.js';
 
@@ -44,7 +46,7 @@ export function getCar(id) {
   if (!car) {
     logger.error(`Cannot find car with carId ${id}`);
 
-    throw new Error(`Cannot find car with carId ${id}`);
+    throw new Boom.notFound(`Cannot find car with carId ${id}`);
   }
 
   return {
@@ -66,7 +68,7 @@ export function addCar(params) {
   if (existingData) {
     logger.error('Data with the same payload already exists');
 
-    throw new Error('Data with the same payload already exists');
+    throw new Boom.badRequest('Data with the same payload already exists');
   }
 
   logger.info('Saving the new car data');
@@ -87,7 +89,7 @@ export function updateCar(id, params) {
   if (!car) {
     logger.error(`Cannot find car with id ${id}`);
 
-    throw new Error(`Cannot find car with id ${id}`);
+    throw new Boom.notFound(`Cannot find car with id ${id}`);
   }
 
   logger.info(`Updating the data for car id ${id}`);
@@ -112,7 +114,7 @@ export function removeCar(id) {
   if (!car) {
     logger.error(`Cannot delete car with id ${id} because it doesn't exist`);
 
-    throw new Error(`Cannot delete car with id ${id} because it doesn't exist`);
+    throw new Boom.notFound(`Cannot delete car with id ${id} because it doesn't exist`);
   }
 
   new Car().removeById(id);

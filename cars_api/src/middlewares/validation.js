@@ -7,10 +7,7 @@ export function validateBody(schema) {
 
       next();
     } catch (err) {
-      res.status(400).json({
-        message: 'Request body validation error',
-        details: err.details.map((e) => e.message),
-      });
+      next(err);
     }
   };
 }
@@ -22,10 +19,7 @@ export function validateQueryParams(schema) {
 
       next();
     } catch (err) {
-      res.status(400).json({
-        message: 'Query params validation error',
-        details: err.details.map((e) => e.message),
-      });
+      next(err);
     }
   };
 }
