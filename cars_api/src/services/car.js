@@ -3,11 +3,6 @@ import Boom from '@hapi/boom';
 import Car from '../models/Car.js';
 import logger from '../utils/logger.js';
 
-/**
- * Get all cars.
- *
- * @return
- */
 export function getAllCars(query) {
   const manufacturerFilter = query.manufacturer ? query.manufacturer.split(',') : [];
   const modelFilter = query.model ? query.model.split(',') : [];
@@ -32,12 +27,6 @@ export function getAllCars(query) {
   };
 }
 
-/**
- * Get a specific car details by id.
- *
- * @param {string} id
- * @returns {object}
- */
 export function getCar(id) {
   logger.info(`Fetching car with carId ${id}`);
 
