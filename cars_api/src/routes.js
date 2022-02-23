@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import connection from './knexfile.js';
 import addCarSchema from './schemas/addCar.js';
 import * as apiController from './controllers/api.js';
 import * as carController from './controllers/car.js';
@@ -9,6 +10,12 @@ import { validateBody, validateQueryParams } from './middlewares/validation.js';
 const router = Router();
 
 router.get('/', apiController.getAPIDetails);
+
+router.get('/abcd', async (req, res, next) => {
+  const data = await connection('cars').select('*');
+
+  res.json(data);
+});
 
 router.get('/cars', validateQueryParams(getCarsQuerySchema), carController.getCars);
 

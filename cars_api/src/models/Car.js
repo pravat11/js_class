@@ -1,38 +1,23 @@
-import diskDb from 'diskdb';
+import DBModel from '../db/DBModel';
 
 /**
  * Model for the 'cars' file.
  *
  * @class Car
  */
-class Car {
+class Car extends DBModel {
   constructor() {
-    this.filename = 'cars';
-    this.db = diskDb.connect('src/db', [this.filename]);
+    super('cars');
   }
 
-  getAll() {
-    return this.db[this.filename].find();
-  }
+  getCarDetails() {
+    const data = this.connection.raw(`
+      SELECT c.id, m.name, c.model, c.created_at
+      FROM cars c
+      INNER JOIN manufacturers m ON m.id = c.manufacturer_id
+    `);
 
-  getById(id) {
-    return this.db[this.filename].findOne({ _id: id });
-  }
-
-  findByParams(params) {
-    return this.db[this.filename].findOne(params);
-  }
-
-  save(data) {
-    return this.db[this.filename].save(data);
-  }
-
-  updateById(id, data) {
-    return this.db[this.filename].update({ _id: id }, data);
-  }
-
-  removeById(id) {
-    return this.db[this.filename].remove({ _id: id });
+    return data;
   }
 }
 
