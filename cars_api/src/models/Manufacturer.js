@@ -1,4 +1,4 @@
-import DBModel from '../db/DBModel';
+import DBModel from './DBModel.js';
 
 /**
  * Model for the 'manufacturers' table.
@@ -8,10 +8,6 @@ import DBModel from '../db/DBModel';
 class Manufacturer extends DBModel {
   constructor() {
     super('manufacturers');
-  }
-
-  demo() {
-    this.connection.raw('SELECT * FROM manufacturers');
   }
 }
 

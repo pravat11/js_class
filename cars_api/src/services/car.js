@@ -9,22 +9,27 @@ import logger from '../utils/logger.js';
  * @param {Object} [query]
  * @return {Object}
  */
-export function getAllCars(query) {
-  const manufacturerFilter = query.manufacturer ? query.manufacturer.split(',') : [];
+export async function getAllCars(query) {
+  const manufacturerId = query.manufacturerId;
   const modelFilter = query.model ? query.model.split(',') : [];
 
   logger.info('Fetching a list of all cars');
 
-  const cars = new Car().getAll();
+  const cars = await new Car().getAllCars();
 
-  let filteredCars = cars;
+  const parsedCars = cars.map((car) => ({
+    ...car,
+    images: car.images ? car.images.split(',') : []
+  }));
 
-  if (manufacturerFilter.length) {
-    filteredCars = cars.filter((car) => manufacturerFilter.includes(car.manufacturer));
+  let filteredCars = parsedCars;
+
+  if (manufacturerId) {
+    filteredCars = parsedCars.filter((car) => +manufacturerId === car.manufacturerId);
   }
 
   if (modelFilter.length) {
-    filteredCars = cars.filter((car) => modelFilter.includes(car.model));
+    filteredCars = parsedCars.filter((car) => modelFilter.includes(car.model));
   }
 
   return {
@@ -39,10 +44,10 @@ export function getAllCars(query) {
  * @param {string} id
  * @return {Object}
  */
-export function getCar(id) {
+export async function getCar(id) {
   logger.info(`Fetching car with carId ${id}`);
 
-  const car = new Car().getById(id);
+  const car = await new Car().getCarDetails(id);
 
   if (!car) {
     logger.error(`Cannot find car with carId ${id}`);
@@ -50,8 +55,13 @@ export function getCar(id) {
     throw new Boom.notFound(`Cannot find car with carId ${id}`);
   }
 
+  const parsedCar = {
+    ...car,
+    images: car.images ? car.images.split(',') : []
+  };
+
   return {
-    data: car,
+    data: parsedCar,
     message: `Details of carId ${id}`
   };
 }
@@ -62,17 +72,18 @@ export function getCar(id) {
  * @param {Object} params
  * @return {Object}
  */
-export function addCar(params) {
+export async function addCar(params) {
   logger.debug('Payload received', params);
 
-  const onlyRequiredParams = {
-    manufacturer: params.manufacturer,
-    model: params.model
+  const carTableInsertParams = {
+    manufacturerId: params.manufacturerId,
+    model: params.model,
+    horsepower: params.horsepower
   };
 
   logger.info('Checking if similar record already exists');
 
-  const existingData = new Car().findByParams(onlyRequiredParams);
+  const existingData = await new Car().findByParams(carTableInsertParams);
 
   if (existingData) {
     logger.error('Data with the same payload already exists');
@@ -82,7 +93,16 @@ export function addCar(params) {
 
   logger.info('Saving the new car data');
 
-  const data = new Car().save(onlyRequiredParams);
+  const [data] = await new Car().save(carTableInsertParams);
+
+  // if (params.images.length) {
+  //   const carImagesInsertData = params.images.map((url) => ({
+  //     carId: data.id,
+  //     imageUrl: url
+  //   }));
+
+  //   const [imagesData] = await new
+  // }
 
   return {
     data,

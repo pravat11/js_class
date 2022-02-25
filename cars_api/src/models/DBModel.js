@@ -21,15 +21,15 @@ class DBModel {
   }
 
   async getById(id) {
-    const data = await this.connection(this.table).select('*').where('id', id);
+    const [data] = await this.connection(this.table).select('*').where('id', id);
 
-    return camelize(data);
+    return data ? camelize(data) : null;
   }
 
   async findByParams(params) {
-    const data = await this.connection(this.table).select('*').where(snakeize(params));
+    const [data] = await this.connection(this.table).select('*').where(snakeize(params));
 
-    return camelize(data);
+    return data ? camelize(data) : null;
   }
 
   async save(data) {
@@ -48,6 +48,12 @@ class DBModel {
     const result = await this.connection(this.table).delete().where({ id });
 
     return camelize(result);
+  }
+
+  async query(sql, params) {
+    const result = await this.connection.raw(sql, params);
+
+    return camelize(result.rows);
   }
 }
 

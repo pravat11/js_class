@@ -8,13 +8,10 @@ import * as carService from '../services/car.js';
  * @param {Function} next
  */
 export function getCars(req, res, next) {
-  try {
-    const data = carService.getAllCars(req.query);
-
-    res.json(data);
-  } catch (err) {
-    next(err);
-  }
+  carService
+    .getAllCars(req.query)
+    .then((data) => res.json(data))
+    .catch((err) => next(err));
 }
 
 /**
@@ -25,15 +22,10 @@ export function getCars(req, res, next) {
  * @param {Function} next
  */
 export function getCar(req, res, next) {
-  const id = req.params.carIdentifier;
-
-  try {
-    const data = carService.getCar(id);
-
-    res.json(data);
-  } catch (err) {
-    next(err);
-  }
+  carService
+    .getCar(+req.params.carIdentifier)
+    .then((data) => res.json(data))
+    .catch((err) => next(err));
 }
 
 /**
@@ -44,13 +36,10 @@ export function getCar(req, res, next) {
  * @param {Function} next
  */
 export function saveCar(req, res, next) {
-  try {
-    const data = carService.addCar(req.body);
-
-    res.json(data);
-  } catch (err) {
-    next(err);
-  }
+  carService
+    .addCar(req.body)
+    .then((data) => res.json(data))
+    .catch((err) => next(err));
 }
 
 /**

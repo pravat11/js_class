@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 const schema = Joi.object({
-  manufacturer: Joi.string(),
+  manufacturerId: Joi.number().integer(),
   model: Joi.string()
 });
 

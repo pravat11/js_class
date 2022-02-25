@@ -1,4 +1,6 @@
-import DBModel from '../db/DBModel';
+import DBModel from './DBModel.js';
+import getAllCarsQuery from '../db/queries/getAllCars.js';
+import getCarDetailsQuery from '../db/queries/getCarDetail.js';
 
 /**
  * Model for the 'cars' file.
@@ -10,14 +12,14 @@ class Car extends DBModel {
     super('cars');
   }
 
-  getCarDetails() {
-    const data = this.connection.raw(`
-      SELECT c.id, m.name, c.model, c.created_at
-      FROM cars c
-      INNER JOIN manufacturers m ON m.id = c.manufacturer_id
-    `);
+  getAllCars() {
+    return this.query(getAllCarsQuery);
+  }
 
-    return data;
+  async getCarDetails(carId) {
+    const [details] = await this.query(getCarDetailsQuery, { carId });
+
+    return details || null;
   }
 }
 
