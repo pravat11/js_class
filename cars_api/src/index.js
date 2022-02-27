@@ -1,3 +1,4 @@
+import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
@@ -13,6 +14,7 @@ const server = express();
 
 dotenv.config();
 
+server.use(cors());
 server.use(serveFavicon('./public/favicon.ico'));
 
 server.use(helmet());
