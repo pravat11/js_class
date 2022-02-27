@@ -50,6 +50,12 @@ class DBModel {
     return camelize(result);
   }
 
+  async removeByParams(params) {
+    const result = await this.connection(this.table).delete().where(snakeize(params));
+
+    return camelize(result);
+  }
+
   async query(sql, params) {
     const result = await this.connection.raw(sql, params);
 
