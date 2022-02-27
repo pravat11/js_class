@@ -1,8 +1,11 @@
 import { Router } from 'express';
 
 import addCarSchema from './schemas/addCar.js';
+import addUserSchema from './schemas/addUser.js';
+import updateCarSchema from './schemas/updateCar.js';
 import * as apiController from './controllers/api.js';
 import * as carController from './controllers/car.js';
+import * as userController from './controllers/user.js';
 import getCarsQuerySchema from './schemas/getCarsQuery.js';
 import * as manufacturerController from './controllers/manufacturer.js';
 import { validateBody, validateQueryParams } from './middlewares/validation.js';
@@ -19,8 +22,10 @@ router.get('/cars/:carIdentifier', carController.getCar);
 
 router.post('/cars', validateBody(addCarSchema), carController.saveCar);
 
-router.put('/cars/:carIdentifier', carController.updateCar);
+router.put('/cars/:carIdentifier', validateBody(updateCarSchema), carController.updateCar);
 
 router.delete('/cars/:carIdentifier', carController.removeCar);
+
+router.post('/users', validateBody(addUserSchema), userController.addUser);
 
 export default router;
