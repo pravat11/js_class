@@ -1,9 +1,9 @@
-import Knex from 'knex';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: `../.env` });
+// dotenv.config();
 
-const connection = Knex({
+const configuration = {
   client: process.env.DB_CLIENT,
   connection: {
     host: process.env.DB_HOST,
@@ -11,7 +11,16 @@ const connection = Knex({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
+  },
+  migrations: {
+    tableName: 'migrations',
+    directory: './migrations',
+    stub: './stub/migration.stub'
+  },
+  seeds: {
+    directory: './seeds',
+    stub: './stub/seed.stub'
   }
-});
+};
 
-export default connection;
+export default configuration;

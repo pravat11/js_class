@@ -9,6 +9,11 @@
     "start:dev": "NODE_ENV=development nodemon --watch src/ src/index.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
+    "seed": "knex seed:run --knexfile src/knexfile.js",
+    "seed:create": "knex seed:make --knexfile src/knexfile.js",
+    "migrate": "knex migrate:latest --knexfile src/knexfile.js",
+    "rollback": "knex migrate:rollback --knexfile src/knexfile.js",
+    "migrate:create": "knex migrate:make --knexfile src/knexfile.js",
     "prettify": "prettier --single-quote --print-width 120  --write \"src/**/*.js\""
   },
   "dependencies": {
@@ -25,6 +30,7 @@
     "joi": "^17.6.0",
     "knex": "^1.0.3",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
     "pg": "^8.7.3",
     "serve-favicon": "^2.5.0",
