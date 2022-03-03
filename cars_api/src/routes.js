@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import loginSchema from './schemas/login.js';
 import addCarSchema from './schemas/addCar.js';
 import addUserSchema from './schemas/addUser.js';
 import updateCarSchema from './schemas/updateCar.js';
@@ -27,5 +28,7 @@ router.put('/cars/:carIdentifier', validateBody(updateCarSchema), carController.
 router.delete('/cars/:carIdentifier', carController.removeCar);
 
 router.post('/users', validateBody(addUserSchema), userController.addUser);
+
+router.post('/login', validateBody(loginSchema), userController.login);
 
 export default router;

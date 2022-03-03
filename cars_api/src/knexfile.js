@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
-dotenv.config({ path: `../.env` });
-// dotenv.config();
+// dotenv.config({ path: `../.env` });
+dotenv.config();
 
 const configuration = {
   client: process.env.DB_CLIENT,
