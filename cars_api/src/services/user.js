@@ -56,13 +56,16 @@ export async function login(params) {
     throw new Boom.badRequest('Invalid credentials');
   }
 
-  const token = createToken({
+  const user = {
     id: existingUser.id,
+    name: existingUser.name,
     email: existingUser.email
-  });
+  };
+
+  const token = createToken(user);
 
   return {
-    token,
+    data: { token, user },
     message: 'Logged in succesfully'
   };
 }

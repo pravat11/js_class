@@ -39,6 +39,14 @@ function buildError(err) {
     };
   }
 
+  if (err.name === 'UnauthorizedError') {
+    return {
+      code: HttpStatusCodes.UNAUTHORIZED,
+      message: HttpStatusCodes.getStatusText(HttpStatusCodes.UNAUTHORIZED),
+      details: err.message
+    };
+  }
+
   // Any other error types will be treated as an internal server error
   return {
     code: HttpStatusCodes.INTERNAL_SERVER_ERROR,
