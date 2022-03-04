@@ -1,7 +1,10 @@
 import dotenv from 'dotenv';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-// dotenv.config({ path: `../.env` });
-dotenv.config();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+dotenv.config({ path: __dirname + '/../.env' });
 
 const configuration = {
   client: process.env.DB_CLIENT,
